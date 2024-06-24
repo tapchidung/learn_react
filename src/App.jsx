@@ -5,7 +5,10 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-
+  const myFunction = () => {
+    console.log('test')
+  }
+  myFunction();
   return (
     <>
       <div>
