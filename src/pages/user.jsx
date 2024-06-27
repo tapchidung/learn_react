@@ -1,14 +1,33 @@
-import UserForm from "../components/user/user.from"
-import UserTable from "../components/user/user.table"
+import UserForm from "../components/user/user.form";
+import UserTable from "../components/user/user.table";
+import { fetchAllUserAPI } from '../services/api.service';
+import { useEffect, useState } from 'react';
 
 const UserPage = () => {
-    return (
-        <div>
-            <UserForm />
-            <UserTable />
-        </div>
 
+    const [dataUsers, setDataUsers] = useState([]);
+
+    //empty array => run once
+    useEffect(() => {
+        loadUser();
+    }, []);
+
+    const loadUser = async () => {
+        const res = await fetchAllUserAPI()
+        setDataUsers(res.data)
+    }
+
+
+    // lift-up state 
+    return (
+        <div style={{ padding: "20px" }}>
+            <UserForm loadUser={loadUser} />
+            <UserTable
+                dataUsers={dataUsers}
+                loadUser={loadUser}
+            />
+        </div>
     )
 }
 
-export default UserPage
+export default UserPage;

@@ -1,16 +1,15 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import LoginPage from './pages/login.jsx';
+import RegisterPage from './pages/register.jsx';
 import UserPage from './pages/user.jsx';
 import BookPage from './pages/book.jsx';
-import RegisterPage from './pages/register.jsx';
-import LoginPage from './pages/login.jsx';
-import './styles/global.css'
-import TodoApp from './components/todo/todoApp.jsx';
+import './styles/global.css';
+import TodoApp from './components/todo/TodoApp.jsx';
 import ErrorPage from './pages/error.jsx';
 
 const router = createBrowserRouter([
@@ -25,27 +24,26 @@ const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <UserPage />,
+        element: <UserPage />
       },
       {
         path: "/books",
-        element: <BookPage />,
-      },
+        element: <BookPage />
+      }
     ]
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: <LoginPage />
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: <RegisterPage />
   }
 ]);
-<RouterProvider router={router} />
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    {/* <App /> */}
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <RouterProvider router={router} />
+  // </React.StrictMode>,
 )
