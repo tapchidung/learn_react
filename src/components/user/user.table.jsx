@@ -1,42 +1,25 @@
 import { Space, Table, Tag } from 'antd';
+import { fetchALLUserAPI } from '../../services/api.service';
+import { useEffect, useState } from 'react';
 
 const UserTable = () => {
+    const [dataUser, setDataUser] = useState([])
+    //empty array => run once
+    useEffect(() => {
+        loadUser();
+    }, []);
     const columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text) => <a>{text}</a>,
+            title: 'ID',
+            dataIndex: '_id',
         },
         {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'FullName',
+            dataIndex: 'fullName',
         },
         {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-        },
-        {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            render: (_, { tags }) => (
-                <>
-                    {tags.map((tag) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
-                        if (tag === 'loser') {
-                            color = 'volcano';
-                        }
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    })}
-                </>
-            ),
+            title: 'Email',
+            dataIndex: 'email',
         },
         {
             title: 'Action',
@@ -72,9 +55,18 @@ const UserTable = () => {
             tags: ['cool', 'teacher'],
         },
     ];
+    const loadUser = async () => {
+        const res = await fetchALLUserAPI()
+        setDataUser(res.data)
+    }
 
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table
+            columns={columns}
+            dataSource={dataUser}
+            rowKey={'_id'}
+        />
+
     )
 
 }
